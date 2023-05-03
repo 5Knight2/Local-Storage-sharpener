@@ -9,7 +9,7 @@
   </head>
   <body>
     <header>
-      <h1>JS For Beginners</h1>
+      <h1>JS For Multiple Users</h1>
     </header>
 
     <section class="container">
@@ -17,14 +17,17 @@
         <h1>Add User</h1>
         <div class="msg"></div>
         <div>
+            <label for="email">Email:</label>
+          <input type="email" id="email" required style="height: 30px; border: 0cap;">
+
           <label for="name">Name:</label>
           <input type="text" id="name">
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="text" id="email">
-        </div>
+
+          <label for="mob">mob:</label>
+          <input type="text" id="mob" maxlength="10">
+        
         <input class="btn" type="submit" value="Submit">
+    </div>
       </form>
 
       <ul id="users"></ul>
