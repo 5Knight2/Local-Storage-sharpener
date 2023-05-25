@@ -1,3 +1,4 @@
+showclouddata();
 let form=document.querySelector('#my-form');
 let ul=document.querySelector('ul');
 
@@ -79,4 +80,13 @@ function shownewuser(myobj){
         li.appendChild(btn2);   
         li.appendChild(btn);
         ul.appendChild(li);  
+}
+
+function showclouddata(){
+    axios.get("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments")
+.then((response)=>{console.log(response) 
+    for(let i=0;i<response.data.length;i++)
+shownewuser(response.data[i])})
+.catch((err)=>{console.log(err)})
+
 }
