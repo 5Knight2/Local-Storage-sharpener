@@ -52,22 +52,31 @@ function add(e){
         email:email.value,
         mobile:mob.value
     };
-    localStorage.setItem(email.value,JSON.stringify(myobj));
+    //localStorage.setItem(email.value,JSON.stringify(myobj));
+    axios.post("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments",myobj)
+    .then((response)=>{console.log(response) 
+    shownewuser(response.data)})
+    .catch((err)=>{console.log(err)})
 
+
+
+ 
+}
+function shownewuser(myobj){
     let ul=document.querySelector('ul');
-    let li=document.createElement('li');
-    li.appendChild(document.createTextNode(name.value+'-'+email.value+'-'+mob.value));
-    let btn=document.createElement('button');
-    btn.style.backgroundColor='red';
-    btn.appendChild(document.createTextNode('Delete'));
-    btn.className='delete';
-
-    let btn2=document.createElement('button');
-    btn2.style.backgroundColor='gray';
-    btn2.appendChild(document.createTextNode('Edit'));
-    btn2.className='edit';
-
-    li.appendChild(btn2);   
-    li.appendChild(btn);
-    ul.appendChild(li);    
+        let li=document.createElement('li');
+        li.appendChild(document.createTextNode(myobj.name+'-'+myobj.email+'-'+myobj.mobile));
+        let btn=document.createElement('button');
+        btn.style.backgroundColor='red';
+        btn.appendChild(document.createTextNode('Delete'));
+        btn.className='delete';
+    
+        let btn2=document.createElement('button');
+        btn2.style.backgroundColor='gray';
+        btn2.appendChild(document.createTextNode('Edit'));
+        btn2.className='edit';
+    
+        li.appendChild(btn2);   
+        li.appendChild(btn);
+        ul.appendChild(li);  
 }
