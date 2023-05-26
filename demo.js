@@ -12,8 +12,15 @@ function remove(e){
     e.preventDefault();
     if(e.target.classList.contains('delete')|| e.target.classList.contains('edit')){
         console.log(e.target.parentElement);
-        
+        axios.delete("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments"+"/"+e.target.parentElement.id)
+        .then(()=>{
+            ul.removeChild(e.target.parentElement);
+        })
+        .catch(()=>{
+            console.log(err);
+        })
 
+/*
         for(let i=0;i<localStorage.length;i++){
             let obj=JSON.parse(localStorage.getItem(localStorage.key(i)));
             let str=obj.name+'-'+obj.email+'-'+obj.mobile;
@@ -38,7 +45,7 @@ function remove(e){
             }
         }
 
-        
+     */   
     }
 }
 
@@ -77,6 +84,7 @@ function shownewuser(myobj){
         btn2.appendChild(document.createTextNode('Edit'));
         btn2.className='edit';
     
+        li.id=myobj._id;
         li.appendChild(btn2);   
         li.appendChild(btn);
         ul.appendChild(li);  
