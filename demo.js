@@ -1,4 +1,5 @@
 showclouddata();
+let flag=0;
 let form=document.querySelector('#my-form');
 let ul=document.querySelector('ul');
 
@@ -10,13 +11,13 @@ ul.addEventListener('click',remove);
 
 function remove(e){
     e.preventDefault();
-    if(e.target.classList.contains('delete')|| e.target.classList.contains('edit')){
+    if(e.target.classList.contains('delete')){
         console.log(e.target.parentElement);
         axios.delete("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments"+"/"+e.target.parentElement.id)
         .then(()=>{
             ul.removeChild(e.target.parentElement);
         })
-        .catch(()=>{
+        .catch((err)=>{
             console.log(err);
         })
 
@@ -47,6 +48,26 @@ function remove(e){
 
      */   
     }
+    else if(e.target.classList.contains('edit')){
+
+        axios.get("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments"+"/"+e.target.parentElement.id)
+        .then((response)=>{
+            let myobj=response.data;
+            flag=myobj._id;
+            let name=document.querySelector('#name');
+            name.value=myobj.name;
+            let email=document.querySelector('#email');
+            email.value=myobj.email;
+            let mobile=document.querySelector('#mob');
+            mobile.value=myobj.mobile;
+
+            ul.removeChild(e.target.parentElement);
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
+
 }
 
 function add(e){
@@ -61,11 +82,19 @@ function add(e){
         mobile:mob.value
     };
     //localStorage.setItem(email.value,JSON.stringify(myobj));
+    if(flag==0){
     axios.post("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments",myobj)
     .then((response)=>{console.log(response) 
     shownewuser(response.data)})
     .catch((err)=>{console.log(err)})
+    }else{axios.put("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments"+"/"+flag,myobj)
+    .then((response)=>{console.log(response) 
 
+    shownewuser(myobj)
+flag=0;
+})
+    .catch((err)=>{console.log(err)})
+    }
 
 
  
