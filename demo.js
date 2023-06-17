@@ -7,7 +7,25 @@ let ul=document.querySelector('ul');
 form.addEventListener('submit',add);
 ul.addEventListener('click',remove);
 
-
+function shownewuser(myobj){
+    let ul=document.querySelector('ul');
+        let li=document.createElement('li');
+        li.appendChild(document.createTextNode(myobj.name+'-'+myobj.email+'-'+myobj.mobile));
+        let btn=document.createElement('button');
+        btn.style.backgroundColor='red';
+        btn.appendChild(document.createTextNode('Delete'));
+        btn.className='delete';
+    
+        let btn2=document.createElement('button');
+        btn2.style.backgroundColor='gray';
+        btn2.appendChild(document.createTextNode('Edit'));
+        btn2.className='edit';
+    
+        li.id=myobj.id;
+        li.appendChild(btn2);   
+        li.appendChild(btn);
+        ul.appendChild(li);  
+}
 
 function remove(e){
     e.preventDefault();
@@ -83,9 +101,9 @@ function add(e){
     };
     //localStorage.setItem(email.value,JSON.stringify(myobj));
     if(flag==0){
-    axios.post("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments",myobj)
+    axios.post("http://localhost:8000/user",myobj)
     .then((response)=>{console.log(response) 
-    shownewuser(response.data)})
+    shownewuser(myobj)})
     .catch((err)=>{console.log(err)})
     }else{axios.put("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments"+"/"+flag,myobj)
     .then((response)=>{console.log(response) 
@@ -99,28 +117,10 @@ flag=0;
 
  
 }
-function shownewuser(myobj){
-    let ul=document.querySelector('ul');
-        let li=document.createElement('li');
-        li.appendChild(document.createTextNode(myobj.name+'-'+myobj.email+'-'+myobj.mobile));
-        let btn=document.createElement('button');
-        btn.style.backgroundColor='red';
-        btn.appendChild(document.createTextNode('Delete'));
-        btn.className='delete';
-    
-        let btn2=document.createElement('button');
-        btn2.style.backgroundColor='gray';
-        btn2.appendChild(document.createTextNode('Edit'));
-        btn2.className='edit';
-    
-        li.id=myobj._id;
-        li.appendChild(btn2);   
-        li.appendChild(btn);
-        ul.appendChild(li);  
-}
+
 
 function showclouddata(){
-    axios.get("https://crudcrud.com/api/0b023a1efeab4a78b387a598a685528f/appointments")
+    axios.get("http://localhost:8000/user")
 .then((response)=>{console.log(response) 
     for(let i=0;i<response.data.length;i++)
 shownewuser(response.data[i])})
